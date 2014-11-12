@@ -78,3 +78,40 @@ stream.
 
 Therefore, samples are needed from all the possibilities. The fps/quality ratio
 is totally related to the bandwidth available.
+H.264-SVC or H.265 scalable.
+
+Also, must be taken into account that I must belong at least to the groups
+audio for audio and video for video.
+
+### The stream
+Imagining that we have all the gstreamer beginning pipeline convered, I would
+still need to have the best transport streaming. I need to determine the protocol
+to use.
+
+The codec and the container are easier to setup because I just need the one
+that better performance has. Specifically, VP9 as container and H264 as video
+codec. I still need to figure out the best protocol.
+
+If I want sync, I would need to use RTP, RTSP or UDP itself, mainly because
+I wouldn't be able to discard packets if using one of the other protocols.
+
+
+### The encryption
+It's quite obvious that I would need some kind of openssl implementation for using
+it. If I encrypt everything I wouldn't be able to discard those packets too because
+that would mean that I wouldn't be able to read them.
+
+Another option that has just come up to my mind is to use IPsec. This IPSec thing
+would allow me not to think of the real encrytion, as I would just need to
+configure that link using IPSec.
+
+It's true that for such sort of script, that uses IPSec, I would need CAP_NET_RAW
+capability, so that wouldn't ease the usability of this script.
+
+Trying to achieve such usability means that I need to make it easy to use, so that
+is a no go. I would need to use openssl, and in a future, be able to load it on
+demand.
+
+### The reception
+In the receptor, I need to implement the possible video saving and the visualizer,
+together with all the reverse pipeline.
